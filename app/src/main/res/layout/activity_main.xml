@@ -12,6 +12,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_weight="1"
+        android:background="@drawable/brickwall"
         >
 
         <Button
@@ -23,6 +24,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -34,6 +36,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -45,6 +48,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -56,6 +60,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -67,6 +72,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -78,6 +84,7 @@
             android:layout_marginRight="30dp"
             android:elevation="5dp"
             android:layout_marginTop="8dp"
+            android:alpha="0.65"
             />
 
         <Button
@@ -90,6 +97,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:elevation="5dp"
+            android:alpha="0.65"
             />
 
     </LinearLayout>
