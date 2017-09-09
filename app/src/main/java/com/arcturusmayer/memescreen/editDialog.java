@@ -23,6 +23,22 @@ import java.util.List;
  * Created by Arcturus Mayer on 27.08.2017.
  */
 
+/**
+ * Copyright 2017 Arcturus Mayer
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 public class editDialog extends DialogFragment {
 
     LockScreenAppActivity loc = new LockScreenAppActivity();
@@ -48,6 +64,8 @@ public class editDialog extends DialogFragment {
     public String name3 = "nthree.txt";
     public String name4 = "nfour.txt";
     public String name5 = "nfive.txt";
+    public String ext1 = ".mp3";
+    public String ext2 = ".ogg";
 
     private EditText mEditText;
 
@@ -111,10 +129,14 @@ public class editDialog extends DialogFragment {
         falsefilelist.clear();
 
         for(File file : files) {
-            fileList.add(file.getPath());
+            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))) {
+                fileList.add(file.getPath());
+            }
         }
         for(File file : files) {
-            falsefilelist.add(file.getPath().substring(file.getAbsolutePath().lastIndexOf("/")+1, file.getAbsolutePath().length()));
+            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))) {
+                falsefilelist.add(file.getPath().substring(file.getAbsolutePath().lastIndexOf("/") + 1, file.getAbsolutePath().length()));
+            }
         }
 
         ArrayAdapter<String> directoryList = new ArrayAdapter<String>(getActivity(),
