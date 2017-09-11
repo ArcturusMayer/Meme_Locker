@@ -385,10 +385,10 @@ public class LockScreenAppActivity extends FragmentActivity {
                 != PackageManager.PERMISSION_GRANTED)||(ContextCompat.checkSelfPermission(LockScreenAppActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)||(ContextCompat.checkSelfPermission(LockScreenAppActivity.this,
                 android.Manifest.permission.READ_PHONE_STATE
-                )!=PackageManager.PERMISSION_GRANTED)) {
+        )!=PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(LockScreenAppActivity.this,
                     new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    android.Manifest.permission.READ_PHONE_STATE},
+                            android.Manifest.permission.READ_PHONE_STATE},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
         }else {
             showEditDialog();
