@@ -55,11 +55,11 @@ public class LockScreenAppActivity extends FragmentActivity {
     public static String file3 = "sthree.txt";
     public static String file4 = "sfour.txt";
     public static String file5 = "sfive.txt";
-    public String name1 = "none.txt";
-    public String name2 = "ntwo.txt";
-    public String name3 = "nthree.txt";
-    public String name4 = "nfour.txt";
-    public String name5 = "nfive.txt";
+    public static String name1 = "none.txt";
+    public static String name2 = "ntwo.txt";
+    public static String name3 = "nthree.txt";
+    public static String name4 = "nfour.txt";
+    public static String name5 = "nfive.txt";
 
     String file;
 
@@ -108,23 +108,23 @@ public class LockScreenAppActivity extends FragmentActivity {
 
         one.setTextSize(r);
         one.setText("Sound Button One");
-        one.setText(plays(name1));
+        one.setText(readFromFile(name1));
 
         two.setTextSize(r);
         two.setText("Sound Button Two");
-        two.setText(plays(name2));
+        two.setText(readFromFile(name2));
 
         three.setTextSize(r);
         three.setText("Sound Button Three");
-        three.setText(plays(name3));
+        three.setText(readFromFile(name3));
 
         four.setTextSize(r);
         four.setText("Sound Button Four");
-        four.setText(plays(name4));
+        four.setText(readFromFile(name4));
 
         five.setTextSize(r);
         five.setText("Sound Button Five");
-        five.setText(plays(name5));
+        five.setText(readFromFile(name5));
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -157,10 +157,10 @@ public class LockScreenAppActivity extends FragmentActivity {
                 if (b) {
                     stopService(new Intent(LockScreenAppActivity.this, MyService.class));
                     overridePendingTransition(0, 0);
-                    finish();
+                    finishAndRemoveTask();
                 } else {
                     overridePendingTransition(0, 0);
-                    finish();
+                    finishAndRemoveTask();
                 }
             }
 
@@ -174,12 +174,13 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     choice=1;
-
-                    showDialogOrRequest();
+                    Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
+                    intent.putExtra("button",choice);
+                    startActivity(intent);
                 } else {
                     mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(plays(file1));
+                        mediaPlayer.setDataSource(readFromFile(file1));
                     } catch (IllegalStateException e) {
                     } catch (IOException e) {
                     } catch (IllegalArgumentException e) {
@@ -204,11 +205,13 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     choice=2;
-                    showDialogOrRequest();
+                    Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
+                    intent.putExtra("button",choice);
+                    startActivity(intent);
                 } else {
                     mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(plays(file2));
+                        mediaPlayer.setDataSource(readFromFile(file2));
                     } catch (IllegalStateException e) {
                     } catch (IOException e) {
                     } catch (IllegalArgumentException e) {
@@ -233,11 +236,13 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     choice=3;
-                    showDialogOrRequest();
+                    Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
+                    intent.putExtra("button",choice);
+                    startActivity(intent);
                 } else {
                     mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(plays(file3));
+                        mediaPlayer.setDataSource(readFromFile(file3));
                     } catch (IllegalStateException e) {
                     } catch (IOException e) {
                     } catch (IllegalArgumentException e) {
@@ -262,11 +267,13 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     choice=4;
-                    showDialogOrRequest();
+                    Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
+                    intent.putExtra("button",choice);
+                    startActivity(intent);
                 } else {
                     mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(plays(file4));
+                        mediaPlayer.setDataSource(readFromFile(file4));
                     } catch (IllegalStateException e) {
                     } catch (IOException e) {
                     } catch (IllegalArgumentException e) {
@@ -291,11 +298,13 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     choice=5;
-                    showDialogOrRequest();
+                    Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
+                    intent.putExtra("button",choice);
+                    startActivity(intent);
                 } else {
                     mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(plays(file5));
+                        mediaPlayer.setDataSource(readFromFile(file5));
                     } catch (IllegalStateException e) {
                     } catch (IOException e) {
                     } catch (IllegalArgumentException e) {
@@ -353,7 +362,7 @@ public class LockScreenAppActivity extends FragmentActivity {
         }
     }
 
-    public String plays(final String s){
+    public String readFromFile(final String s){
         String d="";
         try
         {
@@ -372,10 +381,10 @@ public class LockScreenAppActivity extends FragmentActivity {
         return d;
     }
 
-    public void showEditDialog() {
+    public void showFileDialog() {
         FragmentManager fm=getSupportFragmentManager();
         FragmentTransaction fmm=fm.beginTransaction();
-        editDialog edit=new editDialog();
+        FileDialog edit=new FileDialog();
         edit.show(fmm,"edit_dialog");
     }
 
@@ -391,7 +400,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                             android.Manifest.permission.READ_PHONE_STATE},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
         }else {
-            showEditDialog();
+            showFileDialog();
         }
     }
 

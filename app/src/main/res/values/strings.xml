@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Meme Locker</string>
     <string name="banner_ad_unit_id">ca-app-pub-8394280255112583/1930718952</string>
+    <integer name="add_button_id">666</integer>
 </resources>

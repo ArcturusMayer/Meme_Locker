@@ -39,14 +39,12 @@ import java.util.List;
  limitations under the License.
  */
 
-public class editDialog extends DialogFragment {
+public class FileDialog extends DialogFragment {
 
-    LockScreenAppActivity loc = new LockScreenAppActivity();
-
-    Button buttonUp;
-    TextView textFolder;
-    ListView dialog_ListView;
-    AlertDialog diag;
+    private Button buttonUp;
+    private TextView textFolder;
+    private ListView dialog_ListView;
+    private AlertDialog diag;
 
     File root;
     File curFolder;
@@ -69,7 +67,7 @@ public class editDialog extends DialogFragment {
 
     private EditText mEditText;
 
-    public editDialog() {
+    public FileDialog() {
 
     }
 
@@ -106,7 +104,7 @@ public class editDialog extends DialogFragment {
                 } else {
                     filepath = selected.getAbsolutePath();
                     String f = mEditText.getText().toString();
-                    ((LockScreenAppActivity) getActivity()).onClicked(f,filepath);
+                    ((CollectionInsideActivity)getActivity()).onFileChoosed(f,filepath);
                     diag.cancel();
                 }
             }
