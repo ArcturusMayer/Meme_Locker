@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -450,4 +451,3 @@ public class LockScreenAppActivity extends FragmentActivity {
         writeToFile(file, text, LockScreenAppActivity.this);
     }
 }
-

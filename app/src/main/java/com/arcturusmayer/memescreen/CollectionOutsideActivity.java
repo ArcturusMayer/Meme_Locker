@@ -171,6 +171,7 @@ public class CollectionOutsideActivity extends FragmentActivity implements View.
                 showCreateDialog();
             }else{
                 intent.putExtra(key,0);
+                intent.putExtra("button",inten.getIntExtra("button",1));
                 startActivity(intent);
             }
         }
@@ -186,6 +187,7 @@ public class CollectionOutsideActivity extends FragmentActivity implements View.
                 isWrote=true;
                 Intent intent = new Intent(this,CollectionInsideActivity.class);
                 intent.putExtra(key, i+1);
+                intent.putExtra("button",inten.getIntExtra("button",1));
                 startActivity(intent);
             }
         }
@@ -197,6 +199,7 @@ public class CollectionOutsideActivity extends FragmentActivity implements View.
             collectionState.add(true);
             Intent intent = new Intent(this,CollectionInsideActivity.class);
             intent.putExtra(key, collectionsCount);
+            intent.putExtra("button",inten.getIntExtra("button",1));
             startActivity(intent);
         }
     }
