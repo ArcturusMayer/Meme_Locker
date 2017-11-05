@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -64,6 +65,17 @@ public class FileDialog extends DialogFragment {
     public String name5 = "nfive.txt";
     public String ext1 = ".mp3";
     public String ext2 = ".ogg";
+    public String ext3 = ".wav";
+    public String ext4 = ".m4a";
+    public String ext5 = ".mid";
+    public String ext6 = ".flac";
+    public String ext7 = ".aac";
+    public String ext8 = ".xmf";
+    public String ext9 = ".mxmf";
+    public String ext10 = ".rtttl";
+    public String ext11 = ".rtx";
+    public String ext12 = ".ota";
+    public String ext13 = ".imy";
 
     private EditText mEditText;
 
@@ -102,10 +114,14 @@ public class FileDialog extends DialogFragment {
                 if (selected.isDirectory()) {
                     ListDir(selected);
                 } else {
-                    filepath = selected.getAbsolutePath();
-                    String f = mEditText.getText().toString();
-                    ((CollectionInsideActivity)getActivity()).onFileChoosed(f,filepath);
-                    diag.cancel();
+                    if(!mEditText.getText().toString().equals("")) {
+                        filepath = selected.getAbsolutePath();
+                        String f = mEditText.getText().toString();
+                        ((CollectionInsideActivity) getActivity()).onFileChoosed(f, filepath);
+                        diag.cancel();
+                    }else{
+                        Toast.makeText((CollectionInsideActivity)getActivity(),"Enter sound's name",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -127,12 +143,18 @@ public class FileDialog extends DialogFragment {
         falsefilelist.clear();
 
         for(File file : files) {
-            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))) {
+            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))||(file.getAbsolutePath().endsWith(ext3))
+                    ||(file.getAbsolutePath().endsWith(ext4))||(file.getAbsolutePath().endsWith(ext5))||(file.getAbsolutePath().endsWith(ext6))||(file.getAbsolutePath().endsWith(ext7))
+                    ||(file.getAbsolutePath().endsWith(ext8))||(file.getAbsolutePath().endsWith(ext9))||(file.getAbsolutePath().endsWith(ext10))||(file.getAbsolutePath().endsWith(ext11))
+                    ||(file.getAbsolutePath().endsWith(ext12))||(file.getAbsolutePath().endsWith(ext13))) {
                 fileList.add(file.getPath());
             }
         }
         for(File file : files) {
-            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))) {
+            if((file.isDirectory())||(file.getAbsolutePath().endsWith(ext1))||(file.getAbsolutePath().endsWith(ext2))||(file.getAbsolutePath().endsWith(ext3))
+                    ||(file.getAbsolutePath().endsWith(ext4))||(file.getAbsolutePath().endsWith(ext5))||(file.getAbsolutePath().endsWith(ext6))||(file.getAbsolutePath().endsWith(ext7))
+                    ||(file.getAbsolutePath().endsWith(ext8))||(file.getAbsolutePath().endsWith(ext9))||(file.getAbsolutePath().endsWith(ext10))||(file.getAbsolutePath().endsWith(ext11))
+                    ||(file.getAbsolutePath().endsWith(ext12))||(file.getAbsolutePath().endsWith(ext13))) {
                 falsefilelist.add(file.getPath().substring(file.getAbsolutePath().lastIndexOf("/") + 1, file.getAbsolutePath().length()));
             }
         }

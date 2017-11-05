@@ -5,14 +5,22 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/brickwall">
+    android:background="@drawable/orangebackground">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        >
 
     <TextView
         android:id="@+id/folder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose exciting collection or create your own:"
-        android:textColor="#ffffff"/>
+        android:layout_margin="4dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="4dp"
             android:orientation="vertical"
             android:id="@+id/collectioncontainer">
 
@@ -30,10 +38,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Standart collection"
-                android:alpha="0.65"/>
+                android:alpha="0.65"
+                android:layout_margin="4dp"/>
 
         </LinearLayout>
 
     </ScrollView>
+
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

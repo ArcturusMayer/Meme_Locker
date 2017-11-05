@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
 import android.support.v4.app.ActivityCompat;
@@ -13,8 +16,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -49,6 +57,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
     int soundsCount;
     int identifier;
+    float r;
     String soundsCountFile = "SoundsCount";
     ArrayList<Boolean> soundsState;
     Button deleteCollection;
@@ -57,6 +66,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
     Button soundButton;
     Button deleteSound;
     LinearLayout soundButtonsGroup;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +76,21 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         identifier = intent.getIntExtra(CollectionOutsideActivity.key, 0);
         soundsState = new ArrayList<>();
         soundsContainer = findViewById(R.id.soundcontainer);
+        Point p = new Point();
+        ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(p);
+        r = (p.y) / 38;
+        TextView sound = findViewById(R.id.sound);
+        sound.setTextSize(r);
         deleteCollection = findViewById(R.id.deletecollection);
         deleteCollection.setOnClickListener(this);
+
+        mAdView = (AdView) findViewById(R.id.adViewThree);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         lParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lParams.setMargins(8,4,8,4);
         soundsCount=0;
         if((readFromFile(soundsCountFile+Integer.toString(identifier))==null)||(readFromFile(soundsCountFile+Integer.toString(identifier))=="")){
             writeToFile(soundsCountFile+Integer.toString(identifier),Integer.toString(soundsCount),this);
@@ -77,15 +98,69 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         try{
         if (identifier == 0) {
             deleteCollection.setVisibility(View.INVISIBLE);
-            soundsCount = Integer.parseInt(readFromFile(soundsCountFile+Integer.toString(identifier)));
-            for (int i = 0; i < soundsCount; i++) {
-                soundsState.add(Boolean.parseBoolean(readFromFile(Integer.toString(identifier) + "#" + Integer.toString(i) + "state")));
-            }
-            for (int i = 0; i < soundsCount; i++) {
-                if (soundsState.get(i)) {
-                    drawSoundButton(soundsContainer, i);
-                }
-            }
+            Button idontknow = new Button(this);
+            idontknow.setId(R.id.idontknow);
+            idontknow.setText("I don't know!");
+            idontknow.setTextSize(r);
+            idontknow.setAlpha(0.65f);
+            idontknow.setOnClickListener(this);
+            soundsContainer.addView(idontknow,lParams);
+            Button hallelujah = new Button(this);
+            hallelujah.setId(R.id.hallelujah);
+            hallelujah.setText("Hallelujah!");
+            hallelujah.setTextSize(r);
+            hallelujah.setAlpha(0.65f);
+            hallelujah.setOnClickListener(this);
+            soundsContainer.addView(hallelujah,lParams);
+            Button idontgive = new Button(this);
+            idontgive.setId(R.id.idontgive);
+            idontgive.setText("I don't give a fuck!");
+            idontgive.setTextSize(r);
+            idontgive.setAlpha(0.65f);
+            idontgive.setOnClickListener(this);
+            soundsContainer.addView(idontgive,lParams);
+            Button ofcourse = new Button(this);
+            ofcourse.setId(R.id.ofcourse);
+            ofcourse.setText("Of course!");
+            ofcourse.setTextSize(r);
+            ofcourse.setAlpha(0.65f);
+            ofcourse.setOnClickListener(this);
+            soundsContainer.addView(ofcourse,lParams);
+            Button nogod = new Button(this);
+            nogod.setId(R.id.nogod);
+            nogod.setText("NO GOD! PLEASE NO!");
+            nogod.setTextSize(r);
+            nogod.setAlpha(0.65f);
+            nogod.setOnClickListener(this);
+            soundsContainer.addView(nogod,lParams);
+            Button fuckyou = new Button(this);
+            fuckyou.setId(R.id.fckyou);
+            fuckyou.setText("Fuck you, asshole");
+            fuckyou.setTextSize(r);
+            fuckyou.setAlpha(0.65f);
+            fuckyou.setOnClickListener(this);
+            soundsContainer.addView(fuckyou,lParams);
+            Button whatastory = new Button(this);
+            whatastory.setId(R.id.whatastory);
+            whatastory.setText("What a story, Mark!");
+            whatastory.setTextSize(r);
+            whatastory.setAlpha(0.65f);
+            whatastory.setOnClickListener(this);
+            soundsContainer.addView(whatastory,lParams);
+            Button wtf = new Button(this);
+            wtf.setId(R.id.wtf);
+            wtf.setText("What the fuck is this?!");
+            wtf.setTextSize(r);
+            wtf.setAlpha(0.65f);
+            wtf.setOnClickListener(this);
+            soundsContainer.addView(wtf,lParams);
+            Button youwontpass = new Button(this);
+            youwontpass.setId(R.id.youwontpass);
+            youwontpass.setText("YOU SHALL NOT PASS!");
+            youwontpass.setTextSize(r);
+            youwontpass.setAlpha(0.65f);
+            youwontpass.setOnClickListener(this);
+            soundsContainer.addView(youwontpass,lParams);
         } else {
                 soundsCount = Integer.parseInt(readFromFile(soundsCountFile+Integer.toString(identifier)));
             for (int i = 0; i < soundsCount; i++) {
@@ -96,23 +171,27 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
                     drawSoundButton(soundsContainer, i);
                 }
             }
+            Button addSound = new Button(this);
+            addSound.setId(R.id.add_sound_id);
+            addSound.setText("Add new sound");
+            addSound.setTextSize(r);
+            addSound.setAlpha(0.65f);
+            addSound.setOnClickListener(this);
+            soundsContainer.addView(addSound, lParams);
         }
     }catch (Exception e){
     }
-        Button addSound = new Button(this);
-        addSound.setId(R.id.add_sound_id);
-        addSound.setText("Add new sound");
-        addSound.setAlpha(0.65f);
-        addSound.setOnClickListener(this);
-        soundsContainer.addView(addSound, lParams);
+
     }
 
     private void drawSoundButton(LinearLayout soundContainer, int id){
         lParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lParams.setMargins(8,4,8,4);
         soundButton = new Button(this);
         soundButton.setId(id);
         soundButton.setText(readFromFile(Integer.toString(identifier) + "#" + Integer.toString(id) + "soundname"));
+        soundButton.setTextSize(r);
         soundButton.setAlpha(0.65f);
         soundButton.setOnClickListener(this);
         soundButton.setLayoutParams(new LinearLayout.LayoutParams(
@@ -121,6 +200,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         deleteSound = new Button(this);
         deleteSound.setId(soundsCount+id);
         deleteSound.setText("Delete");
+        deleteSound.setTextSize(r);
         deleteSound.setAlpha(0.65f);
         deleteSound.setOnClickListener(this);
         deleteSound.setLayoutParams(new LinearLayout.LayoutParams(
@@ -136,77 +216,156 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.deletecollection){
-            writeToFile((Integer.toString(identifier) + "state"),"false",this);
-            for(int i=0;i<soundsCount;i++){
-                writeToFile(Integer.toString(identifier)+"#"+Integer.toString(i)+"state","false",this);
-            }
-            startActivity(new Intent(this,CollectionOutsideActivity.class));
-            finish();
-        }else{
-            if(v.getId()==R.id.add_sound_id){
-                showDialogOrRequest();
-            }else{
-                boolean isBinded = false;
-                int i=0;
-                do {
-                    if(v.getId()==i){
-                        int choice = getIntent().getIntExtra("button",1);
-                        String file=LockScreenAppActivity.file1;
-                        switch (choice) {
-                            case (1):
-                                file = LockScreenAppActivity.file1;
-                                break;
-                            case (2):
-                                file = LockScreenAppActivity.file2;
-                                break;
-                            case (3):
-                                file = LockScreenAppActivity.file3;
-                                break;
-                            case (4):
-                                file = LockScreenAppActivity.file4;
-                                break;
-                            case (5):
-                                file = LockScreenAppActivity.file5;
-                                break;
-                        }
-                        writeToFile(file, readFromFile(Integer.toString(identifier)+"#"+Integer.toString(i)+"path"), this);
-
-                        switch (choice) {
-                            case (1):
-                                file = LockScreenAppActivity.name1;
-                                break;
-                            case (2):
-                                file = LockScreenAppActivity.name2;
-                                break;
-                            case (3):
-                                file = LockScreenAppActivity.name3;
-                                break;
-                            case (4):
-                                file = LockScreenAppActivity.name4;
-                                break;
-                            case (5):
-                                file = LockScreenAppActivity.name5;
-                                break;
-                        }
-                        writeToFile(file, readFromFile(Integer.toString(identifier)+"#"+Integer.toString(i)+"soundname"), this);
-                        isBinded = true;
-                        startActivity(new Intent(this,LockScreenAppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        finish();
-                    }
-                    i++;
-                } while ((v.getId() != i-1)&&(i<soundsCount));
-                i=soundsCount;
-                do {
-                    if((v.getId()==i)&&(!isBinded)){
-                        writeToFile(Integer.toString(identifier)+"#"+Integer.toString(i-soundsCount)+"state","false",this);
-                        soundButtonsGroup = findViewById(i+soundsCount*2);
-                        soundsContainer.removeView(soundButtonsGroup);
-                    }
-                    i++;
-                } while ((v.getId() != i-1)&&(i<soundsCount*2));
-            }
+        switch (v.getId()) {
+            case R.id.idontknow:
+                onSoundChoosen("I don't know!","1");
+                break;
+            case R.id.hallelujah:
+                onSoundChoosen("Hallelujah!","2");
+                break;
+            case R.id.idontgive:
+                onSoundChoosen("I don't give a fuck!","3");
+                break;
+            case R.id.ofcourse:
+                onSoundChoosen("Of course!","4");
+                break;
+            case R.id.nogod:
+                onSoundChoosen("NO GOD! PLEASE NO!","5");
+                break;
+            case R.id.fckyou:
+                onSoundChoosen("Fuck you, asshole","6");
+                break;
+            case R.id.whatastory:
+                onSoundChoosen("What a story, Mark!","7");
+                break;
+            case R.id.wtf:
+                onSoundChoosen("What the fuck is this?!","8");
+                break;
+            case R.id.youwontpass:
+                onSoundChoosen("YOU SHALL NOT PASS!","9");
+                break;
         }
+            if (v.getId() == R.id.deletecollection) {
+                writeToFile((Integer.toString(identifier) + "state"), "false", this);
+                for (int i = 0; i < soundsCount; i++) {
+                    writeToFile(Integer.toString(identifier) + "#" + Integer.toString(i) + "state", "false", this);
+                }
+                startActivity(new Intent(this, CollectionOutsideActivity.class));
+                finish();
+            } else {
+                if (v.getId() == R.id.add_sound_id) {
+                    showDialogOrRequest();
+                } else {
+                    boolean isBinded = false;
+                    int i = 0;
+                    do {
+                        if (v.getId() == i) {
+                            int choice = getIntent().getIntExtra("button", 1);
+                            String file = LockScreenAppActivity.file1;
+                            switch (choice) {
+                                case (1):
+                                    file = LockScreenAppActivity.file1;
+                                    break;
+                                case (2):
+                                    file = LockScreenAppActivity.file2;
+                                    break;
+                                case (3):
+                                    file = LockScreenAppActivity.file3;
+                                    break;
+                                case (4):
+                                    file = LockScreenAppActivity.file4;
+                                    break;
+                                case (5):
+                                    file = LockScreenAppActivity.file5;
+                                    break;
+                            }
+                            writeToFile(file, readFromFile(Integer.toString(identifier) + "#" + Integer.toString(i) + "path"), this);
+
+                            switch (choice) {
+                                case (1):
+                                    file = LockScreenAppActivity.name1;
+                                    break;
+                                case (2):
+                                    file = LockScreenAppActivity.name2;
+                                    break;
+                                case (3):
+                                    file = LockScreenAppActivity.name3;
+                                    break;
+                                case (4):
+                                    file = LockScreenAppActivity.name4;
+                                    break;
+                                case (5):
+                                    file = LockScreenAppActivity.name5;
+                                    break;
+                            }
+                            writeToFile(file, readFromFile(Integer.toString(identifier) + "#" + Integer.toString(i) + "soundname"), this);
+                            isBinded = true;
+                            startActivity(new Intent(this, LockScreenAppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                        i++;
+                    } while ((v.getId() != i - 1) && (i < soundsCount));
+                    i = soundsCount;
+                    do {
+                        if ((v.getId() == i) && (!isBinded)) {
+                            writeToFile(Integer.toString(identifier) + "#" + Integer.toString(i - soundsCount) + "state", "false", this);
+                            Intent intent = getIntent();
+                            intent.putExtra(CollectionOutsideActivity.key, intent.getIntExtra(CollectionOutsideActivity.key, 0));
+                            intent.putExtra("button", intent.getIntExtra("button", 1));
+                            overridePendingTransition(0, 0);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
+                            finish();
+                        }
+                        i++;
+                    } while ((v.getId() != i - 1) && (i < soundsCount * 2));
+                }
+            }
+    }
+
+    private void onSoundChoosen(String soundname,String soundid){
+        int choice = getIntent().getIntExtra("button", 1);
+        String file = LockScreenAppActivity.file1;
+        switch (choice) {
+            case (1):
+                file = LockScreenAppActivity.file1;
+                break;
+            case (2):
+                file = LockScreenAppActivity.file2;
+                break;
+            case (3):
+                file = LockScreenAppActivity.file3;
+                break;
+            case (4):
+                file = LockScreenAppActivity.file4;
+                break;
+            case (5):
+                file = LockScreenAppActivity.file5;
+                break;
+        }
+        writeToFile(file, "#"+soundid, this);
+
+        switch (choice) {
+            case (1):
+                file = LockScreenAppActivity.name1;
+                break;
+            case (2):
+                file = LockScreenAppActivity.name2;
+                break;
+            case (3):
+                file = LockScreenAppActivity.name3;
+                break;
+            case (4):
+                file = LockScreenAppActivity.name4;
+                break;
+            case (5):
+                file = LockScreenAppActivity.name5;
+                break;
+        }
+        writeToFile(file, soundname, this);
+        startActivity(new Intent(this, LockScreenAppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
     }
 
     public void onFileChoosed(String name, String filepath){
@@ -312,5 +471,11 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         }else {
             showFileDialog();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,CollectionOutsideActivity.class));
+        finish();
     }
 }

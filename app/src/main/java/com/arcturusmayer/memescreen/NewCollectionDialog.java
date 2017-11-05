@@ -48,15 +48,15 @@ public class NewCollectionDialog extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.collection_dialog_layout,(ViewGroup) getActivity().findViewById(R.id.layout));
         addAction = view.findViewById(R.id.addcol);
         collectionName = view.findViewById(R.id.colname);
+        builder.setView(view);
+        final Dialog diag = builder.create();
         addAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     ((CollectionOutsideActivity)getActivity()).addCollection((collectionName.getText()).toString());
-
+                    diag.cancel();
             }
         });
-        builder.setView(view);
-        return builder.create();
+        return diag;
     }
 }

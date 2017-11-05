@@ -2,4 +2,13 @@
 <resources>
     <item name="add_sound_id" type="id" />
     <item name="add_collection_id" type="id" />
+    <item name="idontknow" type="id" />
+    <item name="hallelujah" type="id" />
+    <item name="idontgive" type="id" />
+    <item name="ofcourse" type="id" />
+    <item name="nogod" type="id" />
+    <item name="fckyou" type="id" />
+    <item name="whatastory" type="id" />
+    <item name="wtf" type="id" />
+    <item name="youwontpass" type="id" />
 </resources>
