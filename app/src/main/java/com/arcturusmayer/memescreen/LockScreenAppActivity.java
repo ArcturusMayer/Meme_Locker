@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -76,6 +77,7 @@ public class LockScreenAppActivity extends FragmentActivity {
     Button four;
     Button five;
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     int choice;
     Boolean b;
@@ -93,7 +95,7 @@ public class LockScreenAppActivity extends FragmentActivity {
 
         Point p = new Point();
         ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(p);
-        float r = (p.y) / 38;
+        float r = (p.y) / 45;
 
         b = false;
 
@@ -105,10 +107,12 @@ public class LockScreenAppActivity extends FragmentActivity {
         four = (Button) findViewById(R.id.SoundFour);
         five = (Button) findViewById(R.id.SoundFive);
 
+        //opt.setText("Режим проигрывания");
         opt.setText("Playback mode");
         opt.setTextSize(r);
 
 
+        //unlk.setText("Разблокировать");
         unlk.setText("Unlock");
         unlk.setTextSize(r);
 
@@ -144,6 +148,10 @@ public class LockScreenAppActivity extends FragmentActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitisl_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         opt.setOnClickListener(new View.OnClickListener() {
 
@@ -152,10 +160,16 @@ public class LockScreenAppActivity extends FragmentActivity {
                 releaseMP();
                 if (b) {
                     b = false;
+                    //unlk.setText("Разблокировать");
+                    //opt.setText("Режим проигрывания");
+
                     unlk.setText("Unlock");
                     opt.setText("Playback mode");
                 } else {
                     b = true;
+                    //unlk.setText("Отключить");
+                    //opt.setText("Режим привязки");
+
                     unlk.setText("Turn off");
                     opt.setText("Audio binding mode");
                 }
@@ -192,6 +206,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
                     intent.putExtra("button",choice);
                     startActivity(intent);
+                    mInterstitialAd.show();
                 } else {
                     if (readFromFile(file1).startsWith("#")) {
                         mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this,getSoundId(readFromFile(file1)));
@@ -228,6 +243,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
                     intent.putExtra("button",choice);
                     startActivity(intent);
+                    mInterstitialAd.show();
                 } else {
                     if (readFromFile(file2).startsWith("#")) {
                         mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file2)));
@@ -264,6 +280,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
                     intent.putExtra("button",choice);
                     startActivity(intent);
+                    mInterstitialAd.show();
                 } else {
                     if (readFromFile(file3).startsWith("#")) {
                         mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file3)));
@@ -300,6 +317,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
                     intent.putExtra("button",choice);
                     startActivity(intent);
+                    mInterstitialAd.show();
                 } else {
                     if (readFromFile(file4).startsWith("#")) {
                         mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file4)));
@@ -336,6 +354,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     Intent intent =new Intent(LockScreenAppActivity.this,CollectionOutsideActivity.class);
                     intent.putExtra("button",choice);
                     startActivity(intent);
+                    mInterstitialAd.show();
                 } else {
                     if (readFromFile(file5).startsWith("#")) {
                         mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file5)));
@@ -395,6 +414,10 @@ public class LockScreenAppActivity extends FragmentActivity {
                 return R.raw.whatthefuckisthis;
             case 9:
                 return R.raw.youshallnotpasslordofthering;
+            case 10:
+                return R.raw.voteto;
+            case 11:
+                return R.raw.naher;
         }
         return R.raw.hallelujahchorussoundeffect;
     }

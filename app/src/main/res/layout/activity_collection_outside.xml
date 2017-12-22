@@ -19,7 +19,7 @@
         android:id="@+id/folder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose exciting collection or create your own:"
+        android:text="Choose existing collection or create new one:"
         android:layout_margin="4dp"/>
 
     <ScrollView

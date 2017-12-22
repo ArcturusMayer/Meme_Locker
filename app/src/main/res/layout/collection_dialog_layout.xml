@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/colname"
-        android:hint="Name for collection"/>
+        android:hint="Collection's name"/>
 
     <Button
         android:id="@+id/addcol"

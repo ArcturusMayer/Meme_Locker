@@ -11,4 +11,6 @@
     <item name="whatastory" type="id" />
     <item name="wtf" type="id" />
     <item name="youwontpass" type="id" />
+    <item name="voteto" type="id"/>
+    <item name="naher" type="id"/>
 </resources>

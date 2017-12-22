@@ -78,7 +78,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         soundsContainer = findViewById(R.id.soundcontainer);
         Point p = new Point();
         ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(p);
-        r = (p.y) / 38;
+        r = (p.y) / 45;
         TextView sound = findViewById(R.id.sound);
         sound.setTextSize(r);
         deleteCollection = findViewById(R.id.deletecollection);
@@ -107,6 +107,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             soundsContainer.addView(idontknow,lParams);
             Button hallelujah = new Button(this);
             hallelujah.setId(R.id.hallelujah);
+            //hallelujah.setText("Аллилуйя!");
             hallelujah.setText("Hallelujah!");
             hallelujah.setTextSize(r);
             hallelujah.setAlpha(0.65f);
@@ -114,7 +115,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             soundsContainer.addView(hallelujah,lParams);
             Button idontgive = new Button(this);
             idontgive.setId(R.id.idontgive);
-            idontgive.setText("I don't give a fuck!");
+            idontgive.setText("I don't give a ****!");
             idontgive.setTextSize(r);
             idontgive.setAlpha(0.65f);
             idontgive.setOnClickListener(this);
@@ -135,7 +136,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             soundsContainer.addView(nogod,lParams);
             Button fuckyou = new Button(this);
             fuckyou.setId(R.id.fckyou);
-            fuckyou.setText("Fuck you, asshole");
+            fuckyou.setText("**** you, *******");
             fuckyou.setTextSize(r);
             fuckyou.setAlpha(0.65f);
             fuckyou.setOnClickListener(this);
@@ -149,7 +150,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             soundsContainer.addView(whatastory,lParams);
             Button wtf = new Button(this);
             wtf.setId(R.id.wtf);
-            wtf.setText("What the fuck is this?!");
+            wtf.setText("What the **** is this?!");
             wtf.setTextSize(r);
             wtf.setAlpha(0.65f);
             wtf.setOnClickListener(this);
@@ -161,6 +162,20 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             youwontpass.setAlpha(0.65f);
             youwontpass.setOnClickListener(this);
             soundsContainer.addView(youwontpass,lParams);
+            //Button voteto = new Button(this);
+            //voteto.setId(R.id.voteto);
+            //voteto.setText("Вот это поворот!");
+            //voteto.setTextSize(r);
+            //voteto.setAlpha(0.65f);
+            //voteto.setOnClickListener(this);
+            //soundsContainer.addView(voteto,lParams);
+            //Button naher = new Button(this);
+            //naher.setId(R.id.naher);
+            //naher.setText("Ну нахрен!");
+            //naher.setTextSize(r);
+            //naher.setAlpha(0.65f);
+            //naher.setOnClickListener(this);
+            //soundsContainer.addView(naher,lParams);
         } else {
                 soundsCount = Integer.parseInt(readFromFile(soundsCountFile+Integer.toString(identifier)));
             for (int i = 0; i < soundsCount; i++) {
@@ -173,6 +188,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             }
             Button addSound = new Button(this);
             addSound.setId(R.id.add_sound_id);
+            //addSound.setText("Добавить новый звук");
             addSound.setText("Add new sound");
             addSound.setTextSize(r);
             addSound.setAlpha(0.65f);
@@ -200,6 +216,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         deleteSound = new Button(this);
         deleteSound.setId(soundsCount+id);
         deleteSound.setText("Delete");
+        //deleteSound.setText("Удалить");
         deleteSound.setTextSize(r);
         deleteSound.setAlpha(0.65f);
         deleteSound.setOnClickListener(this);
@@ -221,10 +238,11 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
                 onSoundChoosen("I don't know!","1");
                 break;
             case R.id.hallelujah:
-                onSoundChoosen("Hallelujah!","2");
+                //onSoundChoosen("Аллилуйя!","2");
+                onSoundChoosen("Hallelujah","2");
                 break;
             case R.id.idontgive:
-                onSoundChoosen("I don't give a fuck!","3");
+                onSoundChoosen("I don't give a ****!","3");
                 break;
             case R.id.ofcourse:
                 onSoundChoosen("Of course!","4");
@@ -233,17 +251,23 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
                 onSoundChoosen("NO GOD! PLEASE NO!","5");
                 break;
             case R.id.fckyou:
-                onSoundChoosen("Fuck you, asshole","6");
+                onSoundChoosen("**** you, *******","6");
                 break;
             case R.id.whatastory:
                 onSoundChoosen("What a story, Mark!","7");
                 break;
             case R.id.wtf:
-                onSoundChoosen("What the fuck is this?!","8");
+                onSoundChoosen("What the **** is this?!","8");
                 break;
             case R.id.youwontpass:
                 onSoundChoosen("YOU SHALL NOT PASS!","9");
                 break;
+            //case R.id.voteto:
+                //onSoundChoosen("Вот это поворот!","10");
+                //break;
+            //case R.id.naher:
+                //onSoundChoosen("Ну нахрен!","11");
+                //break;
         }
             if (v.getId() == R.id.deletecollection) {
                 writeToFile((Integer.toString(identifier) + "state"), "false", this);
@@ -461,17 +485,15 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         if ((ContextCompat.checkSelfPermission(CollectionInsideActivity.this,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)||(ContextCompat.checkSelfPermission(CollectionInsideActivity.this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)||(ContextCompat.checkSelfPermission(CollectionInsideActivity.this,
-                android.Manifest.permission.READ_PHONE_STATE
-        )!=PackageManager.PERMISSION_GRANTED)) {
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(CollectionInsideActivity.this,
-                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_PHONE_STATE},
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
         }else {
             showFileDialog();
         }
     }
+
 
     @Override
     public void onBackPressed() {

@@ -7,9 +7,7 @@
         android:id="@+id/warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tap top button to switch app's modes. In a Playback mode click on middle buttons to play sounds.
-In an Audio binding mode click on middle buttons to get to Collections menu, where you can choose collection.
-In chosen collection you can choose audio."
+        android:text="@string/study_eng"
         android:layout_margin="4dp"/>
 
     <Button

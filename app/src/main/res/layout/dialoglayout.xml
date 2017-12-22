@@ -22,7 +22,7 @@
             android:id="@+id/up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parent folder" />
+            android:text="Parent" />
 
     </LinearLayout>
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonname"
-        android:hint="Enter name for your sound"/>
+        android:hint="Sound's name"/>
 
     <TextView
         android:id="@+id/folder"

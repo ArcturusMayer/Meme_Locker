@@ -2,4 +2,12 @@
     <string name="app_name">Meme Locker</string>
     <string name="banner_ad_unit_id">ca-app-pub-8394280255112583/1930718952</string>
     <integer name="add_button_id">666</integer>
+    <string name="interstitisl_id">ca-app-pub-8394280255112583/1355781728</string>
+    <string name="study_rus">Для переключения между режимами нажмите верхнюю кнопку. В режиме воспроизведения
+нажатие на любую из средних кнопок воспроизводит привязанный к ней звук. Чтобы привязать звук к кнопке,
+нажмите на неё в режиме привязки. Вы попадёте в меню коллекций, где необходимо выбрать нужную вам коллекцию.
+Попав в коллекцию, выберите ваш звук.</string>
+    <string name="study_eng">To switch between modes, press the top button. In Playback mode, pressing any of the middle buttons plays the audio that is binded to it. To bind a sound to a button,
+click on it in the Audio binding mode. You will get to the collection menu, where you need to select the collection you need.
+Once in the collection, select your sound.</string>
 </resources>

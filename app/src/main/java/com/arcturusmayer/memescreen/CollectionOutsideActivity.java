@@ -76,7 +76,7 @@ public class CollectionOutsideActivity extends FragmentActivity implements View.
 
         Point p = new Point();
         ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(p);
-        r = (p.y) / 38;
+        r = (p.y) / 45;
 
         TextView folder = findViewById(R.id.folder);
         folder.setTextSize(r);
@@ -111,6 +111,7 @@ public class CollectionOutsideActivity extends FragmentActivity implements View.
         addcol=new Button(this);
         addcol.setId(R.id.add_collection_id);
         addcol.setOnClickListener(this);
+        //addcol.setText("Добавить новую");
         addcol.setText("Add new");
         addcol.setTextSize(r);
         addcol.setAlpha(0.65f);
