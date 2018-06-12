@@ -20,6 +20,7 @@ package com.arcturusmayer.memescreen;
  limitations under the License.
  */
 
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -38,7 +39,12 @@ public class MyService extends Service {
 
     @Override
     public void onCreate() {
-        IntentFilter filter = new IntentFilter();
+        KeyguardManager.KeyguardLock k1;
+        KeyguardManager km = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+        k1 = km.newKeyguardLock("IN");
+        k1.disableKeyguard();
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
 
         mReceiver = new lockScreenReciver();

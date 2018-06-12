@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
@@ -16,9 +17,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -76,10 +79,15 @@ public class LockScreenAppActivity extends FragmentActivity {
     Button three;
     Button four;
     Button five;
+    LinearLayout slideContainer;
+    LinearLayout.LayoutParams layoutParams;
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
 
     int choice;
+    int windowwidth;
+    int start_x_cord;
+    int swipe_length;
     Boolean b;
 
     private MediaPlayer mediaPlayer;
@@ -97,6 +105,9 @@ public class LockScreenAppActivity extends FragmentActivity {
         ((WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(p);
         float r = (p.y) / 45;
 
+        windowwidth = getWindowManager().getDefaultDisplay().getWidth();
+        swipe_length = (int) (windowwidth*0.5f);
+
         b = false;
 
         opt = (Button) findViewById(R.id.Options);
@@ -106,6 +117,7 @@ public class LockScreenAppActivity extends FragmentActivity {
         three = (Button) findViewById(R.id.SoundThree);
         four = (Button) findViewById(R.id.SoundFour);
         five = (Button) findViewById(R.id.SoundFive);
+        slideContainer = findViewById(R.id.slideContainer);
 
         //opt.setText("Режим проигрывания");
         opt.setText("Playback mode");
@@ -208,26 +220,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     startActivity(intent);
                     mInterstitialAd.show();
                 } else {
-                    if (readFromFile(file1).startsWith("#")) {
-                        mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this,getSoundId(readFromFile(file1)));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(readFromFile(file1));
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        } catch (IllegalArgumentException e) {
-                        } catch (SecurityException e) {
-                        }
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        try {
-                            mediaPlayer.prepare();
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        }
-                        mediaPlayer.start();
-                    }
+                    playSound(file1);
                 }
             }
 
@@ -245,26 +238,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     startActivity(intent);
                     mInterstitialAd.show();
                 } else {
-                    if (readFromFile(file2).startsWith("#")) {
-                        mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file2)));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(readFromFile(file2));
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        } catch (IllegalArgumentException e) {
-                        } catch (SecurityException e) {
-                        }
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        try {
-                            mediaPlayer.prepare();
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        }
-                        mediaPlayer.start();
-                    }
+                    playSound(file2);
                 }
             }
 
@@ -282,26 +256,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     startActivity(intent);
                     mInterstitialAd.show();
                 } else {
-                    if (readFromFile(file3).startsWith("#")) {
-                        mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file3)));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(readFromFile(file3));
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        } catch (IllegalArgumentException e) {
-                        } catch (SecurityException e) {
-                        }
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        try {
-                            mediaPlayer.prepare();
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        }
-                        mediaPlayer.start();
-                    }
+                    playSound(file3);
                 }
             }
 
@@ -319,26 +274,7 @@ public class LockScreenAppActivity extends FragmentActivity {
                     startActivity(intent);
                     mInterstitialAd.show();
                 } else {
-                    if (readFromFile(file4).startsWith("#")) {
-                        mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file4)));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(readFromFile(file4));
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        } catch (IllegalArgumentException e) {
-                        } catch (SecurityException e) {
-                        }
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        try {
-                            mediaPlayer.prepare();
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        }
-                        mediaPlayer.start();
-                    }
+                    playSound(file4);
                 }
             }
 
@@ -356,33 +292,46 @@ public class LockScreenAppActivity extends FragmentActivity {
                     startActivity(intent);
                     mInterstitialAd.show();
                 } else {
-                    if (readFromFile(file5).startsWith("#")) {
-                        mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this, getSoundId(readFromFile(file5)));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer = new MediaPlayer();
-                        try {
-                            mediaPlayer.setDataSource(readFromFile(file5));
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        } catch (IllegalArgumentException e) {
-                        } catch (SecurityException e) {
-                        }
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        try {
-                            mediaPlayer.prepare();
-                        } catch (IllegalStateException e) {
-                        } catch (IOException e) {
-                        }
-                        mediaPlayer.start();
-                    }
+                    playSound(file5);
                 }
             }
 
 
         });
-    }
 
+        slideContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+
+                switch(motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        start_x_cord = (int) motionEvent.getRawX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int x_cord = (int) motionEvent.getRawX();
+                        layoutParams.rightMargin = -(x_cord-start_x_cord);
+                        view.setLayoutParams(layoutParams);
+                        if (Math.abs(x_cord-start_x_cord) >= swipe_length) {
+                            view.setVisibility(View.GONE);
+                            releaseMP();
+                            finishAndRemoveTask();
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        int x_cord1 = (int) motionEvent.getRawX();
+                        if(Math.abs(x_cord1-start_x_cord) < swipe_length) {
+                            layoutParams.rightMargin = 0;
+                            view.setLayoutParams(layoutParams);
+                        }
+                        break;
+                }
+
+                return true;
+            }
+        });
+    }
+ 
     public void releaseMP() {
         if (mediaPlayer != null) {
             try {
@@ -400,24 +349,20 @@ public class LockScreenAppActivity extends FragmentActivity {
                 return R.raw.christopherwalkenidontknow;
             case 2:
                 return R.raw.hallelujahchorussoundeffect;
-            case 3:
-                return R.raw.idontgiveafuck;
             case 4:
                 return R.raw.mbisonofcourse;
             case 5:
                 return R.raw.nogodpleaseno;
-            case 6:
-                return R.raw.theterminatorfuckyouasshole;
             case 7:
                 return R.raw.whatastorymark;
-            case 8:
-                return R.raw.whatthefuckisthis;
             case 9:
                 return R.raw.youshallnotpasslordofthering;
             case 10:
                 return R.raw.voteto;
-            case 11:
-                return R.raw.naher;
+            case 12:
+                return R.raw.applause;
+            case 13:
+                return R.raw.nelsonhaha;
         }
         return R.raw.hallelujahchorussoundeffect;
     }
@@ -542,5 +487,34 @@ public class LockScreenAppActivity extends FragmentActivity {
         FragmentTransaction fmm=fm.beginTransaction();
         StudyingDialog diag = new StudyingDialog();
         diag.show(fmm,"CreateCol");
+    }
+
+    private void playSound(String PathFile){
+        if (readFromFile(PathFile).startsWith("#")) {
+            mediaPlayer = MediaPlayer.create(LockScreenAppActivity.this,getSoundId(readFromFile(PathFile)));
+            mediaPlayer.start();
+        } else {
+            mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(readFromFile(PathFile));
+            } catch (IllegalStateException e) {
+            } catch (IOException e) {
+            } catch (IllegalArgumentException e) {
+            } catch (SecurityException e) {
+            }
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mediaPlayer.prepare();
+            } catch (IllegalStateException e) {
+            } catch (IOException e) {
+            }
+            mediaPlayer.start();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        releaseMP();
+        super.onDestroy();
     }
 }

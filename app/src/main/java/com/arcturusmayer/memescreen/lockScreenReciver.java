@@ -37,7 +37,7 @@ public class lockScreenReciver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             wasScreenOn = false;
             Intent intent11 = new Intent(context, LockScreenAppActivity.class);
-            intent11.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent11.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent11);
         }
     }

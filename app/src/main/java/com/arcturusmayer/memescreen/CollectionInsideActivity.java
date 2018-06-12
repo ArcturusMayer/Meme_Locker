@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
 import android.support.v4.app.ActivityCompat;
@@ -113,13 +114,6 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             hallelujah.setAlpha(0.65f);
             hallelujah.setOnClickListener(this);
             soundsContainer.addView(hallelujah,lParams);
-            Button idontgive = new Button(this);
-            idontgive.setId(R.id.idontgive);
-            idontgive.setText("I don't give a ****!");
-            idontgive.setTextSize(r);
-            idontgive.setAlpha(0.65f);
-            idontgive.setOnClickListener(this);
-            soundsContainer.addView(idontgive,lParams);
             Button ofcourse = new Button(this);
             ofcourse.setId(R.id.ofcourse);
             ofcourse.setText("Of course!");
@@ -134,13 +128,6 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             nogod.setAlpha(0.65f);
             nogod.setOnClickListener(this);
             soundsContainer.addView(nogod,lParams);
-            Button fuckyou = new Button(this);
-            fuckyou.setId(R.id.fckyou);
-            fuckyou.setText("**** you, *******");
-            fuckyou.setTextSize(r);
-            fuckyou.setAlpha(0.65f);
-            fuckyou.setOnClickListener(this);
-            soundsContainer.addView(fuckyou,lParams);
             Button whatastory = new Button(this);
             whatastory.setId(R.id.whatastory);
             whatastory.setText("What a story, Mark!");
@@ -148,13 +135,6 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             whatastory.setAlpha(0.65f);
             whatastory.setOnClickListener(this);
             soundsContainer.addView(whatastory,lParams);
-            Button wtf = new Button(this);
-            wtf.setId(R.id.wtf);
-            wtf.setText("What the **** is this?!");
-            wtf.setTextSize(r);
-            wtf.setAlpha(0.65f);
-            wtf.setOnClickListener(this);
-            soundsContainer.addView(wtf,lParams);
             Button youwontpass = new Button(this);
             youwontpass.setId(R.id.youwontpass);
             youwontpass.setText("YOU SHALL NOT PASS!");
@@ -169,13 +149,20 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
             //voteto.setAlpha(0.65f);
             //voteto.setOnClickListener(this);
             //soundsContainer.addView(voteto,lParams);
-            //Button naher = new Button(this);
-            //naher.setId(R.id.naher);
-            //naher.setText("Ну нахрен!");
-            //naher.setTextSize(r);
-            //naher.setAlpha(0.65f);
-            //naher.setOnClickListener(this);
-            //soundsContainer.addView(naher,lParams);
+            Button applause = new Button(this);
+            applause.setId(R.id.applause);
+            applause.setText("Applause");
+            applause.setTextSize(r);
+            applause.setAlpha(0.65f);
+            applause.setOnClickListener(this);
+            soundsContainer.addView(applause,lParams);
+            Button haha = new Button(this);
+            haha.setId(R.id.haha);
+            haha.setText("Nelson's \"Ha Ha!\"");
+            haha.setTextSize(r);
+            haha.setAlpha(0.65f);
+            haha.setOnClickListener(this);
+            soundsContainer.addView(haha,lParams);
         } else {
                 soundsCount = Integer.parseInt(readFromFile(soundsCountFile+Integer.toString(identifier)));
             for (int i = 0; i < soundsCount; i++) {
@@ -216,7 +203,7 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
         deleteSound = new Button(this);
         deleteSound.setId(soundsCount+id);
         deleteSound.setText("Delete");
-        //deleteSound.setText("Удалить");
+        //deleteSound.setText("Удалить");r
         deleteSound.setTextSize(r);
         deleteSound.setAlpha(0.65f);
         deleteSound.setOnClickListener(this);
@@ -241,32 +228,26 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
                 //onSoundChoosen("Аллилуйя!","2");
                 onSoundChoosen("Hallelujah","2");
                 break;
-            case R.id.idontgive:
-                onSoundChoosen("I don't give a ****!","3");
-                break;
             case R.id.ofcourse:
                 onSoundChoosen("Of course!","4");
                 break;
             case R.id.nogod:
                 onSoundChoosen("NO GOD! PLEASE NO!","5");
                 break;
-            case R.id.fckyou:
-                onSoundChoosen("**** you, *******","6");
-                break;
             case R.id.whatastory:
                 onSoundChoosen("What a story, Mark!","7");
-                break;
-            case R.id.wtf:
-                onSoundChoosen("What the **** is this?!","8");
                 break;
             case R.id.youwontpass:
                 onSoundChoosen("YOU SHALL NOT PASS!","9");
                 break;
+            case R.id.applause:
+                onSoundChoosen("Applause","12");
+                break;
+            case R.id.haha:
+                onSoundChoosen("Nelson's \"Ha Ha!\"","13");
+                break;
             //case R.id.voteto:
                 //onSoundChoosen("Вот это поворот!","10");
-                //break;
-            //case R.id.naher:
-                //onSoundChoosen("Ну нахрен!","11");
                 //break;
         }
             if (v.getId() == R.id.deletecollection) {
@@ -278,7 +259,11 @@ public class CollectionInsideActivity extends FragmentActivity implements View.O
                 finish();
             } else {
                 if (v.getId() == R.id.add_sound_id) {
-                    showDialogOrRequest();
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        showDialogOrRequest();
+                    }else{
+                        showFileDialog();
+                    }
                 } else {
                     boolean isBinded = false;
                     int i = 0;

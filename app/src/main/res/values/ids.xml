@@ -13,4 +13,6 @@
     <item name="youwontpass" type="id" />
     <item name="voteto" type="id"/>
     <item name="naher" type="id"/>
+    <item name="applause" type="id"/>
+    <item name="haha" type="id"/>
 </resources>
